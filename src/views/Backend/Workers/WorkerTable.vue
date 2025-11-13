@@ -26,8 +26,8 @@ const background = ref(false)
 //是否禁用分页
 const disabled = ref(false)
 
-//渲染的响应式变量,存储了全部数据
-const tableData = ref([
+//渲染的响应式变量,存储当前分页
+const currentData = ref([
   {
     id: 1,
     name: '本杰明',
@@ -40,63 +40,63 @@ const tableData = ref([
   }
 ]);
 
-//存储当前数据
-const currentData = ref([])
-
 //----查询总数据量，优先渲染分页组件---------------------------------
 import {WorkerSelectNumService} from "@/api/WorkerSelectWorkerNum"
 const workerSelectNumService = async ()=>{
   let result = await WorkerSelectNumService()
   ElMessage.success(result.msg);
-  totalPages.value = pageSize.value ;
+  totalPages.value = result.data ;
 }
 
 //----向后端发请求--获取全部员工数据------------------------------
-import {WorkerSelectAll} from "@/api/WorkerSelectAll";
-
+import {WorkerSelect} from "@/api/WorkerSelect";
 //姓名条件
 const name = ref(null)
 
 //分页查询全部
 const workerSelect = async ()=>{
+  //整合传入后端的数据 当前页面的游标/每页记录数/姓名条件
   let data = {
+    "currentPage": currentPage.value,
+    "pageSize": pageSize.value,
     "name": name.value
   }
   console.log(data)
-  let result = await WorkerSelectAll(data);
+  let result = await WorkerSelect(data);
   console.log(result);
   ElMessage.success(result.msg);
-  tableData.value=result.data;
-  calculateCurrentData();
+  currentData.value=result.data;
 }
 
-//----分页组件事件触发调试--------------------
+//----分页组件事件触发--------------------
 //每页条数改变时触发
-const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
+const handleSizeChange = async (newSize: number) => {
+  //修正每页大小
+  pageSize.value = newSize;
+  //修正当前页面为1
+  currentPage.value = 1;
+  //异步请求重新拉取数据
+  await workerSelect();
+
+  console.log(`${newSize} items per page`)
 }
 //输入当前页码时触发
-const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+const handleCurrentChange = async (newPage: number) => {
+  //修正当前页码
+  currentPage.value = newPage;
+  //重新拉取数据
+  await workerSelect();
+
+  console.log(`current page: ${newPage}`)
 }
 
-//-----------------
-// 计算当前页数据（核心逻辑）
-const calculateCurrentData = () => {
-  // 计算起始索引和结束索引
-  const startIndex = (currentPage.value - 1) * pageSize.value;
-  const endIndex = startIndex + pageSize.value;
-  // 从全部数据中截取当前页数据
-  currentData.value = tableData.value.slice(startIndex, endIndex);
-};
-// 监听 currentPage 或 pageSize 变化，自动重新计算当前页数据
-watch([currentPage, pageSize], calculateCurrentData);
 
 //----------------------
 onMounted(async ()=>{
+  //优先获取总数据量，并初始化total的数据
   await workerSelectNumService();
+  //根据游标查询数据
   await workerSelect();
-  calculateCurrentData();
     })
 
 </script>

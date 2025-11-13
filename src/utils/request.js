@@ -4,7 +4,7 @@
 //  axios导包
 import axios from 'axios';
 //  定义固定端口前缀
-const baseURL = 'http://localhost:80';
+const baseURL = 'http://localhost:100';
 // const baseURL = 'http://26.88.199.234:80';//必须有协议头，否则视为相对路径
 
 
