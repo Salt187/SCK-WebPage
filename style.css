@@ -9,3 +9,33 @@ html, body {
     height: 100%;
     overflow-x: hidden; /* 防止横向滚动（按需添加） */
 }
+
+input {
+    /* 1. 重置基础样式 */
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none; /* 清除聚焦时的默认轮廓（如蓝色边框） */
+    background: transparent; /* 背景透明 */
+
+    /* 2. 清除表单默认样式（Firefox/IE） */
+    -webkit-appearance: none; /* 清除 WebKit 内核浏览器的默认样式（如 iOS 圆角） */
+    -moz-appearance: none; /* 清除 Firefox 的默认样式 */
+    appearance: none; /* 标准属性，清除默认外观 */
+
+    /* 3. 清除输入框内边距和尺寸偏差 */
+    box-sizing: border-box; /* 确保 padding 不影响整体宽度 */
+    resize: none; /* 禁止调整大小（仅对 textarea 有效，input 可省略） */
+
+    /* 4. 清除 placeholder 默认样式（可选） */
+    &::placeholder {
+        color: #ccc; /* 自定义 placeholder 颜色 */
+        opacity: 1; /* 修复 Firefox placeholder 透明度问题 */
+    }
+
+    /* 5. 清除聚焦时的默认行为（可选，建议保留自定义聚焦样式） */
+    &:focus {
+        outline: none; /* 彻底清除聚焦轮廓 */
+        box-shadow: none; /* 清除聚焦时的阴影（部分浏览器默认） */
+    }
+}

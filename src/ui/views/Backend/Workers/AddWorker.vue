@@ -31,9 +31,9 @@ const form = reactive({
 })
 
 //提交
-import {AddNewWorkerService} from "@/api/AddNewWorker.js";
+import {AddNewWorkerService} from "@/api/BackendApi/AddNewWorker.js";
 import {ElMessage} from "element-plus";
-import router from "@/router/index.js";
+import router from "@/ui/router/index.js";
 
 const addNewWorkerService = () => {
   let Result = AddNewWorkerService(form);

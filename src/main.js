@@ -14,7 +14,7 @@ const persist = createPersistedState()
 pinia.use(persist)
 
 //导入路由
-import router from '@/router'
+import router from 'src/ui/router'
 
 const app = createApp(App);
 app.use(pinia);

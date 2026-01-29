@@ -1,5 +1,31 @@
 <script setup>
 import {Search} from '@element-plus/icons-vue'
+import {onMounted, ref} from "vue";
+
+
+//----响应式变量----------------------------------------------
+const ClientNameShowing = ref('游客账户')
+
+//----打开登录页面-------------------------------------------
+const emit = defineEmits(['open-loginPage'])
+
+function openFunction(){
+  emit('open-loginPage')
+}
+
+//----更新用户名--------------------------------
+import {useClientInfoStore} from "@/stores/ClientInfo.js";
+function updateUserName(){
+  let userName = useClientInfoStore().clientName
+  if(userName!=null&&userName.trim()!==''){
+    ClientNameShowing.value = userName;
+  }
+}
+
+// 匿名函数是必须的
+onMounted(()=>{
+  updateUserName();
+})
 </script>
 
 <template>
@@ -34,19 +60,16 @@ import {Search} from '@element-plus/icons-vue'
         </el-form>
       </div>
       <!-- 用户 -->
-      <div class="user">
-        <a href="https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click&vd_source=96b6178ca8f342b909ea5765c8aa99af" target="_blank">
-          <div></div>
-          <span>起重机鹤师傅</span>
-        </a>
-
+      <div class="user" >
+          <div @click="openFunction"></div>
+          <span>{{ClientNameShowing}}</span>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-/* 导航 */
+//----顶部导航------------------------------------
 .header{
   height: 105px;
   background-color: #F2EBD8;
@@ -106,20 +129,16 @@ import {Search} from '@element-plus/icons-vue'
   height: 40px;
 }
 
-// 用户信息/头像
+//----用户信息/头像--------------------------------------------------------
 .user{
+  display: flex;
+
   margin: 0 0 0 32px;
   width: 200px;
   border: 1px solid #ECECEC;
 }
 
-.user a{
-  width: 100%;
-  height: 100%;
-  display: flex;
-}
-
-.user a div{
+.user div{
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -128,9 +147,10 @@ import {Search} from '@element-plus/icons-vue'
   background-repeat: no-repeat;
   background-size: contain;
 
+  cursor: pointer;
 }
 
-.user a span{
+.user span{
   margin-left: 15px;
   font-size: 18px;
   line-height: 50px;

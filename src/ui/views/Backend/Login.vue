@@ -1,6 +1,6 @@
 <script setup>
 import {Back} from '@element-plus/icons-vue'
-import router from "@/router/index.js";
+import router from "@/ui/router/index.js";
 
 //跳转到客户端
 const toMainStage = ()=>{

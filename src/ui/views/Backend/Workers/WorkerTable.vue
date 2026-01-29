@@ -41,7 +41,7 @@ const currentData = ref([
 ]);
 
 //----查询总数据量，优先渲染分页组件---------------------------------
-import {WorkerSelectNumService} from "@/api/WorkerSelectWorkerNum"
+import {WorkerSelectNumService} from "@/api/BackendApi/WorkerSelectWorkerNum"
 const workerSelectNumService = async ()=>{
   let result = await WorkerSelectNumService()
   ElMessage.success(result.msg);
@@ -49,7 +49,7 @@ const workerSelectNumService = async ()=>{
 }
 
 //----向后端发请求--获取全部员工数据------------------------------
-import {WorkerSelect} from "@/api/WorkerSelect";
+import {WorkerSelect} from "@/api/BackendApi/WorkerSelect";
 //姓名条件
 const name = ref(null)
 

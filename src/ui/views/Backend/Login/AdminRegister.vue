@@ -27,9 +27,9 @@ const formRef = ref(null)
 
 
 //调用后台api接口，注册逻辑
-import {userRegisterService} from '@/api/Register.js'
+import {userRegisterService} from '@/api/BackendApi/Register.js'
 import {ElMessage} from "element-plus";
-import router from "@/router/index.js";
+import router from "@/ui/router/index.js";
 import Agree from "@/views/Backend/Login/agree.vue";
 const Register = async ()=>{
   let Result = await userRegisterService(data.value);

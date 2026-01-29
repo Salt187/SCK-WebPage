@@ -17,4 +17,8 @@ export const useAdminInfoStore = defineStore("AdminInfo", ()=>{
         adminName,setAdminName,removeAdminName
     }
 
-})
+},
+    {
+        persist: true    //持久化存储
+    }
+)

@@ -22,14 +22,18 @@ export const useTokenStore = defineStore('Token', ()=>{
         token.value = '';
     }
 
+    const hasToken = ()=>{
+        return token.value.length > 10;
+    }
+
     //返回数据和函数
     return {
-        token,setToken,removeToken
+        token,setToken,removeToken,hasToken
     }
 
 },
     {
-        // persist: true    //持久化存储
+        persist: true    //持久化存储
     }
 );
 

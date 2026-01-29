@@ -1,6 +1,6 @@
 <script setup>
 
-import router from "@/router/index.js";
+import router from "@/ui/router/index.js";
 
 const toChurch = ()=>{
   router.push('/frontend/church')
@@ -59,28 +59,27 @@ const toMarket = ()=>{
               <span>New</span>
               <span>技能全新升级</span>
             </dd>
-<!--          <hr>-->
+          <hr>
             <dt>新活动</dt>
             <dd>
               <span>New</span>
               <span>为真神传颂教义</span>
             </dd>
-<!--          <hr>-->
+          <hr>
             <dt>全新剧情</dt>
             <dd>
               <span>New</span>
               <span>在校园的一角邂逅鹤师傅</span>
             </dd>
-<!--          <hr>-->
-          了解更多
         </dl>
+        <button class="learn">了解更多</button>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-/* banner区域布局 */
+//----banner---------------------------------------
 /* banner->wrapper版心->图片+文字 */
 .banner{
   height: 375px;
@@ -116,7 +115,7 @@ img{
   height: 100%;
 }
 
-// 右版心
+//----左版心--------------------
 .banner .left{
 
   width: 225px;
@@ -149,20 +148,71 @@ img{
 }
 
 
-/* 右卡片 */
+//----右卡片----------------------------------
+//整个卡片
 .banner .right{
   margin-top: 25px;
-
   width: 225px;
   height: 270px;
   background-color: #e6e6d9;
   vertical-align: middle;
   border-radius: 15px;
 }
-/* 版本热点 */
+//版本热点
 .banner .right h4{
   font-size: 18px;
   padding: 8px 0 0 15px;
   color: #7F5539;
 }
+//具体内容的小盒子
+.banner .right .content{
+  margin-top: 15px;
+  padding: 0 15px 0 15px;
+  height: 240px;
+  border-radius: 15px;
+  background-color: #f0f0e0;
+}
+//小新闻标题
+.right .content dt{
+  font-size: 18px;
+  color: #444444;
+}
+
+.right .content dt:hover{
+  color: #594F3B;
+}
+
+/* New */
+.content dd :nth-child(1){
+  color: #88A09E;
+  font-size: 12px;
+
+}
+/* 简略介绍 */
+.content dd :nth-child(2){
+  font-size: 12px;
+  color: #666666;
+}
+
+.learn{
+  display: block;
+  margin: 12px auto 0;
+  height: 33px;
+  width: 180px;
+  background-color: #F9E9C8;
+
+  border-radius: 15px;
+
+  text-align: center;
+  line-height: 33px;
+  font-size: 15px;
+}
+
+.learn:hover{
+  background-color: #F5D59A;
+}
+/*
+调色盘
+
+*/
 </style>

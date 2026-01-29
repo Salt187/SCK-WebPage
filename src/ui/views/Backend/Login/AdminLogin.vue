@@ -33,7 +33,7 @@ const adminInfoStore = useAdminInfoStore();
 import {useRouter} from "vue-router";
 const router = useRouter();
 //整体的登录逻辑
-import {userLoginService} from '@/api/Login.js'
+import {userLoginService} from '@/api/BackendApi/Login.js'
 import {ElMessage} from "element-plus";
 import Agree from "@/views/Backend/Login/agree.vue";
 const Login = async () => {

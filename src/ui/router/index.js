@@ -18,7 +18,7 @@ import Frontend from "@/views/Frontend/Frontend.vue";
 //定义路由关系
 const routes = [
     //     路径          配置路由的页面组件        默认加载的子组件
-    {path: '/login', component: Login,redirect: '/login/adminLogin' ,children:[
+    {path: '/', component: Login,redirect: '/login/adminLogin' ,children:[
         // 定义子组件
             {path: '/login/adminLogin',component:AdminLogin},
             {path: '/login/adminRegister',component:AdminRegister},
@@ -36,7 +36,7 @@ const routes = [
                     {path: '/frontend/stage/banner',component: stageBanner}
                 ]},
             {path: '/frontend/market', component: market},
-            {path: '/frontend/church', component: church}
+            {path: '/frontend/church', component: church,meta:{title:'教堂',requiresAuth:true}}
         ]},
 
 ]
@@ -50,6 +50,46 @@ const router = createRouter(
         history:createWebHistory()
     }
 )
+
+import {useTokenStore} from '@/stores/Token.js';
+//全局路由守卫
+router.beforeEach(
+    (to, from, next)=>{
+        const tokenStore = useTokenStore();   //获取实例
+        //双!!转布尔值
+        const isLogin = useTokenStore().hasToken();
+        console.log(isLogin);
+
+        if(!isLogin&&to.meta.requiresAuth){
+            next('/')
+            return;
+        }
+
+        if(to.matched.length===0){
+            //定向到丢失页
+            next('/')
+            return;
+        }
+
+
+        console.log("全局路由守卫触发：此时路由还未跳转")
+        next();
+    }
+)
+router.beforeResolve(
+    ()=>{
+        console.log("全局路由守卫触发：此时路由即将跳转，目标组件已经解析")
+    }
+)
+
+router.afterEach(
+    ()=>{
+        console.log("路由已跳转")
+    }
+)
+
+
+
 
 //导出路由
 export default router;

@@ -16,7 +16,7 @@ const AdminInfoData = ref(
 )
 
 //
-import {AdminInfoSelect} from "@/api/AdminInfoSelect.js";
+import {AdminInfoSelect} from "@/api/BackendApi/AdminInfoSelect.js";
 import {ElMessage} from "element-plus";
 const adminInfoService = async ()=>{
   //获取异步信息
